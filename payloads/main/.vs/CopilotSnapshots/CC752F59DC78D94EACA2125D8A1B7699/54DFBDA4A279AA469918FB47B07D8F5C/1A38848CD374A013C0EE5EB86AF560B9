@@ -1,0 +1,33 @@
+﻿#include <windows.h>
+#include "mscoree.h"  // ton header custom avec vtable complet
+
+typedef HRESULT(STDMETHODCALLTYPE* CLRCreateInstance_t)(REFCLSID, REFIID, LPVOID*);
+
+HRESULT LoadCLR(ICLRRuntimeHost** ppHost) {
+    HMODULE hMscoree = LoadLibraryW(L"mscoree.dll");
+    if (!hMscoree) return HRESULT_FROM_WIN32(GetLastError());
+
+    CLRCreateInstance_t pCLRCreateInstance =
+        (CLRCreateInstance_t)GetProcAddress(hMscoree, "CLRCreateInstance");
+    if (!pCLRCreateInstance) return HRESULT_FROM_WIN32(GetLastError());
+
+    ICLRMetaHost* pMetaHost = NULL;
+    ICLRRuntimeInfo* pRuntimeInfo = NULL;
+    HRESULT hr;
+
+    hr = pCLRCreateInstance(&CLSID_CLRMetaHost, &IID_ICLRMetaHost, (LPVOID*)&pMetaHost);
+    if (FAILED(hr)) return hr;
+
+    hr = pMetaHost->lpVtbl->GetRuntime(pMetaHost, L"v4.0.30319", &IID_ICLRRuntimeInfo, (LPVOID*)&pRuntimeInfo);
+    if (FAILED(hr)) goto cleanup;
+
+    hr = pRuntimeInfo->lpVtbl->GetInterface(pRuntimeInfo, &CLSID_CLRRuntimeHost, &IID_ICLRRuntimeHost, (LPVOID*)ppHost);
+    if (FAILED(hr)) goto cleanup;
+
+    hr = (*ppHost)->lpVtbl->Start(*ppHost);
+
+cleanup:
+    if (pRuntimeInfo) pRuntimeInfo->lpVtbl->Release(pRuntimeInfo);
+    if (pMetaHost)    pMetaHost->lpVtbl->Release(pMetaHost);
+    return hr;
+}

@@ -1,0 +1,112 @@
+﻿#include <windows.h>
+#include <stdio.h>
+#include <winternl.h>
+
+#include "peb.h"
+
+typedef struct _MY_LDR_DATA_TABLE_ENTRY {
+    LIST_ENTRY InLoadOrderLinks;
+    LIST_ENTRY InMemoryOrderLinks;
+    LIST_ENTRY InInitializationOrderLinks;
+    PVOID      DllBase;
+    PVOID      EntryPoint;
+    ULONG      SizeOfImage;
+    UNICODE_STRING FullDllName;
+    UNICODE_STRING BaseDllName;  // ← maintenant accessible
+} MY_LDR_DATA_TABLE_ENTRY;
+
+
+PVOID pebWalking(const wchar_t* dllSearched) {
+    // pointeur pour stocker l'adresse de la dll found 
+    PVOID dll_addr = NULL;
+
+
+    // 1. Accès au PEB via GS (va à l'adresse 0x60 et lit 8 octets (adresse de 64 bits)) - word = 2 octets
+    PPEB peb = (PPEB)__readgsqword(0x60);
+
+    // On récupère Ldr (structure contenant les listes des dll triés) 
+    PPEB_LDR_DATA peb_ldr = peb->Ldr;
+
+    // on obtient le premier élément de la liste 
+    PLIST_ENTRY head = &peb_ldr->InMemoryOrderModuleList;
+
+    // on  obtient l'élément suivant
+
+        //┌─────────────────────────────┐
+        //│   LDR_DATA_TABLE_ENTRY      │  ← CONTAINING_RECORD te donne ça
+        //│                             │
+        //│   InLoadOrderLinks          │
+        //│   InMemoryOrderLinks  ◄─────│─── curr pointe ICI
+        //│   DllBase                   │
+        //│   BaseDllName               │
+        //└─────────────────────────────┘
+
+    PLIST_ENTRY curr = head->Flink;
+
+    int i = 1;
+
+    printf("DLL chargees : \n");
+
+    while (curr != head) {
+        // Remonter le début de la strcture pour obtenir le début du LDR_DATA_TABLE_ENTRY
+        MY_LDR_DATA_TABLE_ENTRY* entry = CONTAINING_RECORD(
+            curr,
+            MY_LDR_DATA_TABLE_ENTRY,
+            InMemoryOrderLinks
+        );
+
+        if (entry->BaseDllName.Buffer != NULL) {
+            printf(" * %ls\n", entry->BaseDllName.Buffer);
+        }
+        i++;
+        curr = curr->Flink;
+    }
+
+    printf("Trying to find ntdll.dll: \n");
+    curr = curr->Flink;
+
+    while (curr != head) {
+        // Remonter le début de la strcture pour obtenir le début du LDR_DATA_TABLE_ENTRY
+        MY_LDR_DATA_TABLE_ENTRY* entry = CONTAINING_RECORD(
+            curr,
+            MY_LDR_DATA_TABLE_ENTRY,
+            InMemoryOrderLinks
+        );
+
+        // BaseDllName est un WCHAR* (unicode), tu rajoute L pour dire que c'est un char codé sur 2 octets (Unicode) et non 1 (ASCII)
+        if (_wcsicmp(entry->BaseDllName.Buffer, dllSearched) == 0) {
+            dll_addr = entry->DllBase;
+            printf("Found at address : %p \n", dll_addr);
+        }
+        i++;
+        curr = curr->Flink;
+    }
+    return dll_addr;
+
+}
+
+
+PVOID peParsing(PVOID dll_addr, const char* funcName) {
+
+    // 1. DOS header — vérifie magic MZ (0x5A4D)
+    PIMAGE_DOS_HEADER dos = (PIMAGE_DOS_HEADER)dll_addr; // pointeur de type void tu castes PIMAGE_DOS_HEADER (struct mappant les premiers octet d'un PE)
+    PIMAGE_NT_HEADERS nt = (PIMAGE_NT_HEADERS)((BYTE*)dll_addr + dos->e_lfanew);
+    PIMAGE_EXPORT_DIRECTORY expDir = (PIMAGE_EXPORT_DIRECTORY)(
+        (BYTE*)dll_addr + nt->OptionalHeader.DataDirectory[0].VirtualAddress); // l'index 0 du data directory est toujours l'export directory, Virtual Address pour obtenir offset par rapport à la base  
+
+    DWORD* funAddrs = (DWORD*)((BYTE*)dll_addr + expDir->AddressOfFunctions);
+    DWORD* funNames = (DWORD*)((BYTE*)dll_addr + expDir->AddressOfNames);
+    WORD* funOrdinals = (WORD*)((BYTE*)dll_addr + expDir->AddressOfNameOrdinals);
+
+
+    for (int i = 0;i < expDir->NumberOfNames;i++) {
+        char* name = (char*)((BYTE*)dll_addr + funNames[i]);
+        if (strcmp(name, funcName) == 0) {
+            WORD  ordinal = funOrdinals[i];
+            DWORD funcRVA = funAddrs[ordinal];
+            PVOID funcAddr = (BYTE*)dll_addr + funcRVA;
+            printf("[+] %s trouvee a : %p\n", funcName, funcAddr);
+            return funcAddr;
+        }
+    }
+}

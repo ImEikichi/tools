@@ -11,16 +11,20 @@
       "RelativeMoniker": "D:0:0:{44A2D8A1-CEAA-4E20-A47C-263FE7B0A557}|main\\main.vcxproj|solutionrelative:main\\peb.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F94B97D9-D7E0-45C9-8484-943C0BEE7D8B}|Injector\\Injector.vcxproj|C:\\VM\\shared_folder\\payloads\\main\\Injector\\Injector.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F94B97D9-D7E0-45C9-8484-943C0BEE7D8B}|Injector\\Injector.vcxproj|solutionrelative:Injector\\Injector.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{44A2D8A1-CEAA-4E20-A47C-263FE7B0A557}|main\\main.vcxproj|C:\\VM\\shared_folder\\payloads\\main\\main\\peb.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{44A2D8A1-CEAA-4E20-A47C-263FE7B0A557}|main\\main.vcxproj|solutionrelative:main\\peb.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{44A2D8A1-CEAA-4E20-A47C-263FE7B0A557}|main\\main.vcxproj|C:\\VM\\shared_folder\\payloads\\main\\main\\hardwareBreakpoint.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{44A2D8A1-CEAA-4E20-A47C-263FE7B0A557}|main\\main.vcxproj|solutionrelative:main\\hardwareBreakpoint.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{44A2D8A1-CEAA-4E20-A47C-263FE7B0A557}|main\\main.vcxproj|C:\\VM\\shared_folder\\payloads\\main\\main\\hardwareBreakpoint.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{44A2D8A1-CEAA-4E20-A47C-263FE7B0A557}|main\\main.vcxproj|solutionrelative:main\\hardwareBreakpoint.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F94B97D9-D7E0-45C9-8484-943C0BEE7D8B}|Injector\\Injector.vcxproj|C:\\VM\\shared_folder\\payloads\\main\\Injector\\Injector.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F94B97D9-D7E0-45C9-8484-943C0BEE7D8B}|Injector\\Injector.vcxproj|solutionrelative:Injector\\Injector.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{44A2D8A1-CEAA-4E20-A47C-263FE7B0A557}|main\\main.vcxproj|C:\\VM\\shared_folder\\payloads\\main\\main\\tools.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -38,40 +42,40 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "peb.h",
-              "DocumentMoniker": "C:\\VM\\shared_folder\\payloads\\main\\main\\peb.h",
-              "RelativeDocumentMoniker": "main\\peb.h",
-              "ToolTip": "C:\\VM\\shared_folder\\payloads\\main\\main\\peb.h",
-              "RelativeToolTip": "main\\peb.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-09T19:17:39.395Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Injector.c",
               "DocumentMoniker": "C:\\VM\\shared_folder\\payloads\\main\\Injector\\Injector.c",
               "RelativeDocumentMoniker": "Injector\\Injector.c",
               "ToolTip": "C:\\VM\\shared_folder\\payloads\\main\\Injector\\Injector.c",
               "RelativeToolTip": "Injector\\Injector.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAABgAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAcAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2026-06-14T16:22:50.969Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "peb.c",
+              "DocumentMoniker": "C:\\VM\\shared_folder\\payloads\\main\\main\\peb.c",
+              "RelativeDocumentMoniker": "main\\peb.c",
+              "ToolTip": "C:\\VM\\shared_folder\\payloads\\main\\main\\peb.c",
+              "RelativeToolTip": "main\\peb.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-06-15T18:51:32.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "hardwareBreakpoint.h",
               "DocumentMoniker": "C:\\VM\\shared_folder\\payloads\\main\\main\\hardwareBreakpoint.h",
               "RelativeDocumentMoniker": "main\\hardwareBreakpoint.h",
               "ToolTip": "C:\\VM\\shared_folder\\payloads\\main\\main\\hardwareBreakpoint.h",
               "RelativeToolTip": "main\\hardwareBreakpoint.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-10T17:21:39.252Z",
               "EditorCaption": ""
@@ -84,27 +88,27 @@
               "RelativeDocumentMoniker": "main\\main.c",
               "ToolTip": "C:\\VM\\shared_folder\\payloads\\main\\main\\main.c",
               "RelativeToolTip": "main\\main.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2026-05-10T12:16:32.329Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "hardwareBreakpoint.c",
               "DocumentMoniker": "C:\\VM\\shared_folder\\payloads\\main\\main\\hardwareBreakpoint.c",
               "RelativeDocumentMoniker": "main\\hardwareBreakpoint.c",
               "ToolTip": "C:\\VM\\shared_folder\\payloads\\main\\main\\hardwareBreakpoint.c",
               "RelativeToolTip": "main\\hardwareBreakpoint.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2026-06-14T18:26:44.578Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "tools.h",
               "DocumentMoniker": "C:\\VM\\shared_folder\\payloads\\main\\main\\tools.h",
               "RelativeDocumentMoniker": "main\\tools.h",
@@ -113,6 +117,40 @@
               "ViewState": "AgIAABsAAAAAAAAAAAAAAEUAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-09T20:03:56.253Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "71dd5881-6ae4-4c02-bb03-1ca9d5dd9dfa",
+        "Display": 0,
+        "X": 2503,
+        "Y": 702,
+        "Width": 2218,
+        "Height": 1071,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "peb.h",
+              "DocumentMoniker": "C:\\VM\\shared_folder\\payloads\\main\\main\\peb.h",
+              "RelativeDocumentMoniker": "main\\peb.h",
+              "ToolTip": "C:\\VM\\shared_folder\\payloads\\main\\main\\peb.h",
+              "RelativeToolTip": "main\\peb.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADsAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-06-09T19:17:39.395Z",
+              "EditorCaption": ""
             }
           ]
         }

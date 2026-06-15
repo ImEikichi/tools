@@ -1,2 +1,3 @@
-﻿  main.c
-  main.vcxproj -> C:\VM\shared_folder\payloads\main\x64\Debug\main.exe
+﻿C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(551,5): warning MSB8028: Le répertoire intermédiaire (x64\Debug\) contient des fichiers partagés provenant d'un autre projet (main.vcxproj). Cela peut entraîner un comportement de nettoyage et de regénération incorrect.
+MSVCRTD.lib(exe_main.obj) : error LNK2019: symbole externe non résolu main référencé dans la fonction "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+C:\VM\shared_folder\payloads\main\x64\Debug\hardwareBreakpoint.exe : fatal error LNK1120: 1 externes non résolus

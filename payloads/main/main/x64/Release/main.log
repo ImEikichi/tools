@@ -1,7 +1,10 @@
-﻿  hardwareBreakpoint.c
+﻿C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v180\Microsoft.CppBuild.targets(551,5): warning MSB8028: Le répertoire intermédiaire (x64\Release\) contient des fichiers partagés provenant d'un autre projet (main.vcxproj). Cela peut entraîner un comportement de nettoyage et de regénération incorrect.
+  hardwareBreakpoint.c
+  main.c
+  peb.c
   Génération de code en cours
-  3 of 9 functions (33.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
+  6 of 8 functions (75.0%) were compiled, the rest were copied from previous compilation.
+    3 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Fin de la génération du code
-  main.vcxproj -> C:\VM\shared_folder\payloads\main\x64\Release\main.dll
+  main.vcxproj -> C:\VM\shared_folder\payloads\main\x64\Release\hardwareBreakpoint.dll

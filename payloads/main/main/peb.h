@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <winternl.h>
 
-extern PVOID g_AmsiScanBuffer;
+extern PVOID g_amsScanBuffer;
 
 // structures windows pour cast
 typedef NTSTATUS(NTAPI* pNtAllocateVirtualMemory)(
@@ -53,6 +53,8 @@ typedef struct _MY_LDR_DATA_TABLE_ENTRY {
 } MY_LDR_DATA_TABLE_ENTRY;
 
 // fonctions
-PVOID pebWalking(const wchar_t* dllSearched);
-PVOID peParsing(PVOID dll_addr, const char* funcName);
+unsigned int getHash(const char* s);
+unsigned int getHashW(const wchar_t* s);
+PVOID pebWalking(const unsigned int dllSearched);
+PVOID peParsing(PVOID dll_addr, const unsigned int funcName);
 LONG WINAPI VEH_Handler(EXCEPTION_POINTERS* pExInfo);

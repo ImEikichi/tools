@@ -1,3 +1,0 @@
-﻿#pragma once
-LONG WINAPI VEH_Handler(PEXCEPTION_POINTERS ExceptionInfo);
-void SetDR0Breakpoint(PVOID address);

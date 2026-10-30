@@ -1,0 +1,22 @@
+#!/bin/sh
+# sweep — ping sweep nmap qui n'affiche QUE les hôtes up (une IP par ligne),
+# pour pouvoir rediriger directement dans un fichier.
+# Lance : nmap -vv -sn -n --min-rate 1000 --max-retries 1 -iL <cibles>
+
+usage='usage : sweep <fichier|cible> [fichier|cible ...]
+  fichier : IP / subnets / plages, une par ligne (# = commentaire)
+  sinon   : cible passée telle quelle à nmap (10.0.0.5, 10.0.0.0/24, 10.0.0.1-50)
+Sortie  : uniquement les hôtes up, une IP par ligne  ->  sweep 10.0.0.0/24 > up.txt'
+
+case $1 in
+  -h|--help) echo "$usage"; exit 0 ;;
+  '')        echo "$usage" >&2; exit 1 ;;
+esac
+
+# fichier existant -> son contenu, sinon l'argument tel quel ; le tout est donné à nmap sur stdin.
+# Les erreurs nmap (cible invalide...) restent sur stderr, donc hors du fichier redirigé.
+for t in "$@"; do
+  if [ -e "$t" ]; then cat "$t"; echo; else printf '%s\n' "$t"; fi
+done | nmap -vv -sn -n --min-rate 1000 --max-retries 1 -iL - |
+  awk '/^Nmap scan report for /  { ip = $NF; gsub(/[()]/, "", ip) }
+       /^Host is up/ && !seen[ip]++ { print ip; fflush() }'
